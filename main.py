@@ -67,24 +67,16 @@ def get_mutated_file():
     file_2.close()
     file_3.close()
 
-    mutated_lst = []
+    cross_file_lst = [['1.txt', len(lst_1), lst_1],
+                      ['2.txt', len(lst_2), lst_2],
+                      ['3.txt', len(lst_3), lst_3]
+                      ]
 
-    for lst_len in sorted([len(lst_1), len(lst_2), len(lst_3)]):
-        if len(lst_1) == lst_len:
-            mutated_lst.append('1.txt')
-            mutated_lst.append(str(len(lst_1)))
-            for line in lst_1:
-                mutated_lst.append(line.strip())
-        elif len(lst_2) == lst_len:
-            mutated_lst.append('2.txt')
-            mutated_lst.append(str(len(lst_2)))
-            for line in lst_2:
-                mutated_lst.append(line.strip())
-        elif len(lst_3) == lst_len:
-            mutated_lst.append('3.txt')
-            mutated_lst.append(str(len(lst_3)))
-            for line in lst_3:
-                mutated_lst.append(line.strip())
+    mutated_lst = []
+    for file, length, content in sorted(cross_file_lst, key=lambda x: x[1]):
+        mutated_lst.append(f'{file}\n{length}')
+        for line in content:
+            mutated_lst.append(line.strip())
 
     result = open('mutated.txt', 'w', encoding='utf-8')
     result.write('\n'.join(mutated_lst))
